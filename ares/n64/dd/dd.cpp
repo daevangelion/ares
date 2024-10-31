@@ -21,6 +21,7 @@ auto DD::load(Node::Object parent) -> void {
   port->setDisconnect([&] { return disconnect(); });
 
   iplrom.allocate(4_MiB);
+  modemrom.allocate(8_MiB);
   c2s.allocate(0x400);
   ds.allocate(0x100);
   ms.allocate(0x40);
@@ -28,6 +29,10 @@ auto DD::load(Node::Object parent) -> void {
   // TODO: Detect correct CIC from ipl rom
   if(auto fp = system.pak->read("64dd.ipl.rom")) {
     iplrom.load(fp);
+  }
+
+  if(auto fp = system.pak->read("64dd.modem.rom")) {
+      modemrom.load(fp);
   }
 
   rtc.load();
@@ -41,6 +46,7 @@ auto DD::unload() -> void {
 
   debugger = {};
   iplrom.reset();
+  modemrom.reset();
   c2s.reset();
   ds.reset();
   ms.reset();

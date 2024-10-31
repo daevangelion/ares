@@ -14,6 +14,7 @@ auto Nintendo64DD::load(string location) -> bool {
   pak->append("pif.pal.rom",  Resource::Nintendo64::PIFPAL );
   pak->append("pif.sm5.rom",  Resource::Nintendo64::PIFSM5 );
   pak->append("64dd.ipl.rom", bios);
+  pak->append("64dd.modem.rom", Pak::read("modem.bin"));
   pak->append("time.rtc", 0x10);
 
   if(auto fp = pak->write("time.rtc")) {

@@ -50,6 +50,10 @@ inline auto PI::busRead(u32 address) -> u32 {
   if(address <= 0x1000'0000 + cartridge.rom.size - 1) {
     return cartridge.rom.read<Size>(address);
   }
+
+  if(address <= 0x1800'0000 + dd.modemrom.size -1) {
+      return dd.modemrom.read<Size>(address);
+  }
   return unmapped;
 }
 

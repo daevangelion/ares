@@ -8,6 +8,7 @@ struct DD : Memory::PI<DD> {
   Node::Peripheral node;
   VFS::Pak pak;
   Memory::Readable iplrom;
+  Memory::Readable modemrom;
   Memory::Writable c2s;
   Memory::Writable ds;
   Memory::Writable ms;
