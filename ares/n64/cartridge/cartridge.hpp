@@ -50,6 +50,7 @@ struct Cartridge {
     auto writeHalf(u32 address, u16 data) -> void;
     auto readWord(u32 address) -> u32;
     auto writeWord(u32 address, u32 data) -> void;
+    
   } isviewer;
 
   struct RTC {
@@ -84,6 +85,7 @@ struct Cartridge {
       Node::Debugger::Memory ram;
       Node::Debugger::Memory eeprom;
       Node::Debugger::Memory flash;
+      Node::Debugger::Memory isviewer;
     } memory;
   } debugger;
 

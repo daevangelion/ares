@@ -16,7 +16,7 @@ auto ControllerPort::load(Node::Object parent) -> void {
     port->setSupported({"Aleck64"});
   } else {
     port->setHotSwappable(true);
-    port->setSupported({"Gamepad", "Mouse"});
+    port->setSupported({"Gamepad", "Mouse", "Keyboard"});
   }
 
   port->setAllocate([&](auto name) { return allocate(name); });
@@ -36,6 +36,7 @@ auto ControllerPort::allocate(string name) -> Node::Peripheral {
   if(name == "Gamepad") device = new Gamepad(port);
   if(name == "Mouse"  ) device = new Mouse(port);
   if(name == "Aleck64") device = new Aleck64Controls(port);
+  if(name == "Keyboard"  ) device = new RandNetKeyboard(port);
   if(device) return device->node;
   return {};
 }

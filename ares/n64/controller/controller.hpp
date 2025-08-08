@@ -13,3 +13,4 @@ struct Controller {
 #include "gamepad/gamepad.hpp"
 #include "mouse/mouse.hpp"
 #include "aleck64/aleck64.hpp"
+#include "randnet/keyboard.hpp"

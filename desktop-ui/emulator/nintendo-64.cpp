@@ -6,6 +6,7 @@ struct Nintendo64 : Emulator {
   auto unload() -> void override;
   auto save() -> bool override;
   auto pak(ares::Node::Object) -> shared_pointer<vfs::directory> override;
+  auto input(ares::Node::Input::Input) -> void override;
 
   shared_pointer<mia::Pak> disk;
   u32 regionID = 0;
@@ -49,6 +50,10 @@ Nintendo64::Nintendo64() {
     device.digital ("Left",  virtualPorts[id].mouse.left);
     device.digital ("Right", virtualPorts[id].mouse.right);
     port.append(device); }
+
+  { InputDevice device{"Keyboard"};
+    port.append(device);
+  }    
   
     ports.append(port);
   }
@@ -344,4 +349,102 @@ auto Nintendo64::pak(ares::Node::Object node) -> shared_pointer<vfs::directory> 
   if(node->name() == "Game Boy Color Cartridge") return gb->pak;
   if(node->name() == "Gamepad") return gamepad->pak;
   return {};
+}
+
+auto Nintendo64::input(ares::Node::Input::Input input) -> void {
+  auto device = ares::Node::parent(input);
+  if(!device) return;
+
+  if (device->name() != "Keyboard") {
+    return Emulator::input(input);
+  }
+
+  if (!program.keyboardCaptured) return;
+  auto button = input->cast<ares::Node::Input::Button>();
+
+if(input->name() == "キャンセル") return button->setValue(inputKeyboard("Escape"));
+if(input->name() == "F1") return button->setValue(inputKeyboard("F1"));
+if(input->name() == "F2") return button->setValue(inputKeyboard("F2"));
+if(input->name() == "F3") return button->setValue(inputKeyboard("F3"));
+if(input->name() == "F4") return button->setValue(inputKeyboard("F4"));
+if(input->name() == "F5") return button->setValue(inputKeyboard("F5"));
+if(input->name() == "F6") return button->setValue(inputKeyboard("F6"));
+if(input->name() == "F7") return button->setValue(inputKeyboard("F7"));
+if(input->name() == "F8") return button->setValue(inputKeyboard("F8"));
+if(input->name() == "F9") return button->setValue(inputKeyboard("F9"));
+if(input->name() == "F10") return button->setValue(inputKeyboard("F10"));
+if(input->name() == "F11") return button->setValue(inputKeyboard("F11"));
+if(input->name() == "F12") return button->setValue(inputKeyboard("F12"));
+if(input->name() == "Num Lock") return button->setValue(inputKeyboard(""));
+if(input->name() == "メニュー") return button->setValue(inputKeyboard("Menu"));
+if(input->name() == "前ページ") return button->setValue(inputKeyboard("PageUp"));
+if(input->name() == "次ページ") return button->setValue(inputKeyboard("PageDown"));
+if(input->name() == "半角/全角") return button->setValue(inputKeyboard(""));
+if(input->name() == "ぬ 1 !") return button->setValue(inputKeyboard("Num1"));
+if(input->name() == "ふ 2 \"") return button->setValue(inputKeyboard("Num2"));
+if(input->name() == "あ 3 #") return button->setValue(inputKeyboard("Num3"));
+if(input->name() == "う 4 $") return button->setValue(inputKeyboard("Num4"));
+if(input->name() == "え 5 %") return button->setValue(inputKeyboard("Num5"));
+if(input->name() == "お 6 &") return button->setValue(inputKeyboard("Num6"));
+if(input->name() == "や 7 '") return button->setValue(inputKeyboard("Num7"));
+if(input->name() == "ゆ 8 (") return button->setValue(inputKeyboard("Num8"));
+if(input->name() == "よ 9 )") return button->setValue(inputKeyboard("Num9"));
+if(input->name() == "ほ 0") return button->setValue(inputKeyboard("Num0"));
+if(input->name() == "わ - =") return button->setValue(inputKeyboard("Dash"));
+if(input->name() == "^ ~") return button->setValue(inputKeyboard(""));
+if(input->name() == "Backspace (削除)") return button->setValue(inputKeyboard("Backspace"));
+if(input->name() == "Tab") return button->setValue(inputKeyboard("Tab"));
+if(input->name() == "Q た") return button->setValue(inputKeyboard("Q"));
+if(input->name() == "W") return button->setValue(inputKeyboard("W"));
+if(input->name() == "E") return button->setValue(inputKeyboard("E"));
+if(input->name() == "R") return button->setValue(inputKeyboard("R"));
+if(input->name() == "T") return button->setValue(inputKeyboard("T"));
+if(input->name() == "Y") return button->setValue(inputKeyboard("Y"));
+if(input->name() == "U") return button->setValue(inputKeyboard("U"));
+if(input->name() == "I") return button->setValue(inputKeyboard("I"));
+if(input->name() == "O") return button->setValue(inputKeyboard("O"));
+if(input->name() == "P") return button->setValue(inputKeyboard("P"));
+if(input->name() == "'") return button->setValue(inputKeyboard(""));
+if(input->name() == "{") return button->setValue(inputKeyboard("LeftBracket"));
+if(input->name() == "}") return button->setValue(inputKeyboard("RightBracket"));
+if(input->name() == "Caps Lock 英数") return button->setValue(inputKeyboard(""));
+if(input->name() == "A") return button->setValue(inputKeyboard("A"));
+if(input->name() == "S") return button->setValue(inputKeyboard("S"));
+if(input->name() == "D") return button->setValue(inputKeyboard("D"));
+if(input->name() == "F") return button->setValue(inputKeyboard("F"));
+if(input->name() == "G") return button->setValue(inputKeyboard("G"));
+if(input->name() == "H") return button->setValue(inputKeyboard("H"));
+if(input->name() == "J") return button->setValue(inputKeyboard("J"));
+if(input->name() == "K") return button->setValue(inputKeyboard("K"));
+if(input->name() == "L") return button->setValue(inputKeyboard("L"));
+if(input->name() == "+") return button->setValue(inputKeyboard(""));
+if(input->name() == "*") return button->setValue(inputKeyboard(""));
+if(input->name() == "Enter 改行　決定") return button->setValue(inputKeyboard("Return"));
+if(input->name() == "Shift") return button->setValue(inputKeyboard("LeftShift"));
+if(input->name() == "Z") return button->setValue(inputKeyboard("Z"));
+if(input->name() == "X") return button->setValue(inputKeyboard("X"));
+if(input->name() == "C") return button->setValue(inputKeyboard("C"));
+if(input->name() == "V") return button->setValue(inputKeyboard("V"));
+if(input->name() == "B") return button->setValue(inputKeyboard("B"));
+if(input->name() == "N") return button->setValue(inputKeyboard("N"));
+if(input->name() == "M") return button->setValue(inputKeyboard("M"));
+if(input->name() == "<") return button->setValue(inputKeyboard(""));
+if(input->name() == ">") return button->setValue(inputKeyboard(""));
+if(input->name() == "?") return button->setValue(inputKeyboard(""));
+if(input->name() == "\\") return button->setValue(inputKeyboard("Backslash"));
+if(input->name() == "Up Arrow") return button->setValue(inputKeyboard("Up"));
+if(input->name() == "Right Shift") return button->setValue(inputKeyboard("RightShift"));
+if(input->name() == "Ctrl") return button->setValue(inputKeyboard("LeftControl"));
+if(input->name() == "Opt") return button->setValue(inputKeyboard(""));
+if(input->name() == "|") return button->setValue(inputKeyboard(""));
+if(input->name() == "Alt") return button->setValue(inputKeyboard("LeftAlt"));
+if(input->name() == "無変換") return button->setValue(inputKeyboard(""));
+if(input->name() == "変換") return button->setValue(inputKeyboard(""));
+if(input->name() == "Space") return button->setValue(inputKeyboard("Spacebar"));
+if(input->name() == "カタカナ/ひらがな/ローマ字") return button->setValue(inputKeyboard(""));
+if(input->name() == "Home 行頭") return button->setValue(inputKeyboard("Home"));
+if(input->name() == "End 行末") return button->setValue(inputKeyboard("End"));
+if(input->name() == "Left Arrow") return button->setValue(inputKeyboard("Left"));
+if(input->name() == "Down Arrow") return button->setValue(inputKeyboard("Down"));
+if(input->name() == "Right Arrow") return button->setValue(inputKeyboard("Right"));
 }
